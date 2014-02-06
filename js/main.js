@@ -1,6 +1,10 @@
 require.config({
   baseUrl: 'js',
   shim: {
+    underscore: {
+      paths: 'underscore',
+      exports: '_'
+    },
     d3: {
       paths: 'd3',
       exports: 'd3'
@@ -8,8 +12,8 @@ require.config({
   }
 });
 
-require(['d3'], function(d3) {
-  var data; // loaded asynchronously
+require(['d3', 'underscore'], function(d3, _) {
+  var data = {}; // loaded asynchronously
 
   var path = d3.geo.path();
 
@@ -29,18 +33,19 @@ require(['d3'], function(d3) {
   });
 
   d3.json("http://data.wa.gov/resource/ak95-mjh9.json", function (json){
-    data = json;
+    _.each(json, function (county) {
+      data[county.county_fips_code] = county.unemployment_rate;
+    });
     counties.selectAll("path")
+    .attr("rate", rate)
     .attr("class", quantize);
   });
 
-  //d3.json("../data/unemployment.json", function(json) {
-    //data = json;
-    //counties.selectAll("path")
-    //.attr("class", quantize);
-  //});
+  function rate(d) {
+    return data[parseInt(d.id.slice(-3))];
+  }
 
   function quantize(d) {
-    return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
+    return "q" + Math.min(8, ~~(data[parseInt(d.id.slice(-3))] * 9 / 12)) + "-9";
   }
 });

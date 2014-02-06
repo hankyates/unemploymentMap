@@ -1,0 +1,25 @@
+{
+  "name": "unemployment_map",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "connect": "~2.12.0"
+  },
+  "devDependencies": {
+    "connect": "~2.12.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/hankyates/unemploymentMap"
+  },
+  "author": "Hank Yates",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hankyates/unemploymentMap/issues"
+  },
+  "homepage": "https://github.com/hankyates/unemploymentMap"
+}
